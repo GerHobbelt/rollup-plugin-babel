@@ -33,7 +33,7 @@
     "lint": "eslint src"
   },
   "dependencies": {
-    "@babel/helper-module-imports": "7.0.0-beta.51",
+    "@babel/helper-module-imports": "7.0.0-beta.54",
     "rollup-pluginutils": "^2.3.0"
   },
   "peerDependencies": {
