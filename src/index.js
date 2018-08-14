@@ -1,5 +1,5 @@
 import { dirname } from 'path';
-import { buildExternalHelpers, transform } from '@babel/core';
+import { buildExternalHelpers, transform } from '@gerhobbelt/babel-core';
 import { createFilter } from 'rollup-pluginutils';
 import createPreflightCheck from './preflightCheck.js';
 import helperPlugin from './helperPlugin.js';

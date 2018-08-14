@@ -1,5 +1,5 @@
 import { HELPERS } from './constants.js';
-import { addNamed } from '@babel/helper-module-imports';
+import { addNamed } from '@gerhobbelt/babel-helper-module-imports';
 
 export default function importHelperPlugin () {
 	return {

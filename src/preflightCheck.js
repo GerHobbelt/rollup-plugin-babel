@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { transform } from '@babel/core';
+import { transform } from '@gerhobbelt/babel-core';
 import { INLINE, RUNTIME, EXTERNAL } from './constants.js';
 
 const MODULE_ERROR =
