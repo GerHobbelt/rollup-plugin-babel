@@ -7,7 +7,7 @@ const MODULE_ERROR =
 	'Unfortunately it looks like your configuration specifies a module transformer ' +
 	'to replace ES6 modules with another module format. To continue you have to disable it.' +
 	'\n\n' +
-	'Most commonly it\'s a CommonJS transform added by @babel/preset-env - ' +
+	'Most commonly it\'s a CommonJS transform added by @gerhobbelt/babel-preset-env - ' +
 	'in such case you should disable it by adding `modules: false` option to that preset ' +
 	'(described in more detail here - https://github.com/rollup/rollup-plugin-babel#modules ).';
 

@@ -37,7 +37,7 @@ export default function babel ( options ) {
 			configFile: false,
 		});
 	} catch (err) {
-		throw new Error('You should be using @babel/core@^7.0.0-rc.2. Please upgrade or pin rollup-plugin-babel to 4.0.0-beta.8');
+		throw new Error('You should be using @gerhobbelt/babel-core@^7.0.0. Please upgrade or pin rollup-plugin-babel to 4.0.0-beta.8');
 	}
 
 	const {
