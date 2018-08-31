@@ -2,6 +2,7 @@ var assert = require( 'assert' );
 var path = require( 'path' );
 var rollup = require( 'rollup' );
 var SourceMapConsumer = require( 'source-map' ).SourceMapConsumer;
+var jsonPlugin = require( 'rollup-plugin-json' );
 var babelPlugin = require( '..' );
 
 // from ./src/constants
@@ -111,11 +112,14 @@ describe( 'rollup-plugin-babel', function () {
 			input: 'samples/checks/main.js',
 			plugins: [ babelPlugin() ]
 		})
-			.then( () => {
-				assert.ok( false, 'promise should not fulfil' );
+			.then(bundle => bundle.generate({ output: { format: 'esm' } }))
+			.then(({ code }) => {
+				assert.ok( /class Foo/.test(code));
+				assert.ok( /var Bar/.test(code));
+				assert.ok( !/class Bar/.test(code));
 			})
 			.catch( ( err ) => {
-				assert.ok( /module transformer/i.test( err.message ), 'Expected an error about external helpers or module transform, got "' + err.message + '"' );
+				assert.ok( false, err.message );
 			});
 	});
 
@@ -210,6 +214,32 @@ describe( 'rollup-plugin-babel', function () {
 	it( 'handles babelrc with ignore option used', () => {
 		return bundle('samples/ignored-file/main.js').then(({ code }) => {
 			assert.ok( code.indexOf('class Ignored') !== -1 );
+		});
+	});
+
+	it( 'transpiles only files with default extensions', () => {
+		return bundle('samples/extensions-default/main.js', undefined, undefined, {
+			plugins: [babelPlugin(), jsonPlugin()],
+		}).then(({ code }) => {
+			assert.ok( code.indexOf('class Es ') === -1, 'should transpile .es' );
+			assert.ok( code.indexOf('class Es6 ') === -1, 'should transpile .es6' );
+			assert.ok( code.indexOf('class Js ') === -1, 'should transpile .js' );
+			assert.ok( code.indexOf('class Jsx ') === -1, 'should transpile .jsx' );
+			assert.ok( code.indexOf('class Mjs ') === -1, 'should transpile .mjs' );
+			assert.ok( code.indexOf('class Other ') !== -1, 'should not transpile .other' );
+		});
+	});
+
+	it( 'transpiles only files with whitelisted extensions', () => {
+		return bundle('samples/extensions-custom/main.js', {
+			extensions: ['.js', '.other']
+		}).then(({ code }) => {
+			assert.ok( code.indexOf('class Es ') !== -1, 'should not transpile .es' );
+			assert.ok( code.indexOf('class Es6 ') !== -1, 'should not transpile .es6' );
+			assert.ok( code.indexOf('class Js ') === -1, 'should transpile .js' );
+			assert.ok( code.indexOf('class Jsx ') !== -1, 'should not transpile .jsx' );
+			assert.ok( code.indexOf('class Mjs ') !== -1, 'should not transpile .mjs' );
+			assert.ok( code.indexOf('class Other ') === -1, 'should transpile .other' );
 		});
 	});
 });
