@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/rollup-plugin-babel",
-  "version": "4.0.0-2",
+  "version": "4.0.3-2",
   "description": "Seamless integration between Rollup and Babel.",
   "main": "dist/rollup-plugin-babel.cjs.js",
   "module": "dist/rollup-plugin-babel.esm.js",
@@ -36,7 +36,7 @@
   },
   "peerDependencies": {
     "@gerhobbelt/babel-core": "^7.0.0",
-    "rollup": "^0.60.0"
+    "rollup": ">=0.60.0 <1"
   },
   "devDependencies": {
     "@gerhobbelt/babel-core": "7.0.0-beta.530006",
