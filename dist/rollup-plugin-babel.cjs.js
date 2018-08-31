@@ -30,7 +30,7 @@ function fallbackClassTransform () {
 	return {
 		visitor: {
 			ClassDeclaration: function ClassDeclaration (path$$1, state) {
-				path$$1.replaceWith(path$$1, state.file.addHelper('inherits'));
+				path$$1.replaceWith(state.file.addHelper('inherits'));
 			}
 		}
 	};
